@@ -29,13 +29,11 @@ def load_dataframes(filename, path=DATA_PATH, compression=COMPRESSION, encoding=
 # %%
 df_games_sales = load_dataframes("vgsales")
 df_games_vote = load_dataframes("games_of_all_time")
-df_games_sales.head(10)
 
 # %%
 #name
-df_games_sales['game_name'] = df_games_sales['Name']
+df_games_sales['name'] = df_games_sales['Name']
 df_games_vote['name'] = df_games_vote['game_name']
-df_games_sales['name'] = df_games_sales['game_name']
 
 #platform
 df_games_vote['platform_list']=df_games_vote.apply(lambda row : row['platform'][1:][:-1].replace(' ', '').replace("'", '').split(','), axis=1)
@@ -48,6 +46,6 @@ df = df_games_vote.set_index('name').join(df_games_sales.set_index('name'), how=
 
 # %%
 df_filtred = df[df['game_name_sales'].notna() & df['game_name_vote'].notna()]
-df_filtred[['game_name_sales', 'game_name_vote', 'platform_list_sales', 'platform_list_vote']].head(10)
+df_filtred[['platform_list_sales', 'platform_list_vote']].head(15)
 
 # %%
