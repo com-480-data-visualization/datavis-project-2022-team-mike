@@ -2,30 +2,7 @@
 import os
 import pandas as pd
 import numpy as np
-```
-
-```python
-ENCODING = 'utf-8'
-COMPRESSION = 'bz2'
-SPLIT = '\\' if '\\' in os.getcwd() else '/'
-```
-
-```python
-DATA_PATH = f'data'
-```
-
-```python
-def save_dataframes(df, filename, path=DATA_PATH, compression=COMPRESSION, encoding=ENCODING):
-    path = "" if path == "" else (path.replace('/', SPLIT)+SPLIT).replace(SPLIT+SPLIT, SPLIT)
-    df.to_csv(f"{path}{filename}.csv{'.'+compression if compression != None else ''}",
-              compression=compression, encoding=encoding, index=False)
-```
-
-```python
-def load_dataframes(filename, path=DATA_PATH, compression=COMPRESSION, encoding=ENCODING):
-    path = "" if path == "" else (path.replace('/', SPLIT)+SPLIT).replace(SPLIT+SPLIT, SPLIT)
-    return pd.read_csv(f"{path}{filename}.csv{'.'+compression if compression != None else ''}",
-                       compression=compression, encoding=encoding)
+from util import save_dataframes, load_dataframes
 ```
 
 ```python
@@ -57,7 +34,7 @@ def pr(row):
     return row
 df_games_sales = df_games_sales.apply(pr, axis=1)
 
-print(df_games_sales[df_games_sales['Year'].isna()][['Name','Year', 'Platform']].sort_values('Name').head(15))
+#print(df_games_sales[df_games_sales['Year'].isna()][['Name','Year', 'Platform']].sort_values('Name').head(15))
 #Year
 df_games_sales['Year'] = np.nan_to_num(df_games_sales['Year']).astype(int)
 

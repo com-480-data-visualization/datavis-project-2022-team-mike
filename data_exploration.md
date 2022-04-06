@@ -53,6 +53,4 @@ Top_Sales_Per(df_games_sales, 'Publisher', head = 11)
 Top_Sales_Per(df_games_sales, 'Year')
 ```
 
-```python
-
-```
+# Votes
