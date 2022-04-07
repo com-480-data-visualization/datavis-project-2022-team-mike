@@ -2,6 +2,7 @@
 import os
 import pandas as pd
 import numpy as np
+import ast
 from util import save_dataframes, load_dataframes
 ```
 
@@ -56,7 +57,7 @@ df_games_vote = df_games_vote.rename(columns={'game_name': 'Name',
                                               'rating': 'Rating'})
 
 #Platform
-df_games_vote['Platform']=df_games_vote.apply(lambda row : row['Platform'][1:][:-1].replace(' ', '').replace("'", '').split(','), axis=1)
+df_games_vote['Platform']=df_games_vote['Platform'].apply(lambda x : ast.literal_eval(str(x)))
 
 save_dataframes(df_games_vote, "games_of_all_time_cleand")
 ```
