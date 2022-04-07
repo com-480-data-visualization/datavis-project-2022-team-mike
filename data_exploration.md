@@ -24,8 +24,7 @@ def Top_Per(df, value, top='Sales', head = 20, sales_type = 'Global_Sales'):
     df = pd.DataFrame({value: df.index, sales_type: df[sales_type]}).reset_index(drop=True)
 
     ax = sns.barplot(x=sales_type, y=value, orient='h', data=df)
-    if (value != 'Year'):
-        ax.tick_params(axis='both'if (value != 'Year')else'x', labelsize=100)
+    ax.tick_params(axis='both'if (value != 'Year')else'x', labelsize=20)
     
     plt.xlabel('Count (in millions)', size=20)
     plt.ylabel(value, size=20)

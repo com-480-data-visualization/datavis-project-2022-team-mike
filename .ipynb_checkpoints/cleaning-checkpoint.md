@@ -57,7 +57,8 @@ df_games_vote = df_games_vote.rename(columns={'game_name': 'Name',
                                               'rating': 'Rating'})
 
 #Platform
-df_games_vote['Platform']=df_games_vote['Platform'].apply(lambda x : ast.literal_eval(str(x)))
+df_games_vote['Platform']=df_games_vote['Platform'].apply(lambda x : ast.literal_eval(x))
+df_games_vote['Genre']=df_games_vote['Genre'].apply(lambda x : ast.literal_eval(x) if (str(x) != 'nan') else [])
 
 save_dataframes(df_games_vote, "games_of_all_time_cleand")
 ```
