@@ -28,13 +28,13 @@ We plan to visualize our data based on the different main markets (Europe, North
 
 ## Exploratory Data Analysis
 
-For our exploratory data analysis, we made a [notebook](data_exploration.ipynb) containing basic statistics and simple visualizations.
+For our exploratory data analysis, we made a [notebook](code/data_exploration.ipynb) containing basic statistics and simple visualizations.
 
-!["Top Count Per Year"](img/Top_Count_Per_Year.png "Top Count Per Year")
+!["Top Count Per Year"](./img/Top_Count_Per_Year.png "Top Count Per Year")
 
-!["Top Count Per Platform"](img/Top_Count_Per_Platform.png "Top Count Per Platform")
+!["Top Count Per Platform"](./img/Top_Count_Per_Platform.png "Top Count Per Platform")
 
-![Density Of Meta And User Score](img/Density_Of_Meta_And_User_Score.png "Density Of Meta And User Score")
+![Density Of Meta And User Score](./img/Density_Of_Meta_And_User_Score.png "Density Of Meta And User Score")
 
 ## Related Work
 A full exploratory data analysis and a data visualization is already done on the first dataset [Video Game Sales EDA, Visualizations, ML Models](https://www.kaggle.com/code/vikasukani/video-game-sales-eda-visualizations-ml-models/notebook).
