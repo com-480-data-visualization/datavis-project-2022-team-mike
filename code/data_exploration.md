@@ -148,7 +148,7 @@ ax.tick_params(axis='both', labelsize=20)
 plt.xlabel(f'Score', size=20)
 plt.ylabel(f'Density', size=20)
 plt.title(f'Density Of Meta And User Score', size=24)
-plt.savefig(f'{IMG}Density Of Meta And User Score')
+plt.savefig(f'{IMG}Density_Of_Meta_And_User_Score')
 plt.show()
 ```
 
