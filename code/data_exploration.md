@@ -46,7 +46,7 @@ def Count_Per(df, value, top='Sales', head = 20):
     
     plt.xlabel('Count', size=20)
     plt.ylabel(value, size=20)
-    plt.title(f'Count_{top}_Per_{value}', size=24)
+    plt.title(f'Count {top} Per {value}', size=24)
     plt.savefig(f'{IMG}Count_{top}_Per_{value}'.replace(' ', '_'))
     plt.show()
 ```
