@@ -31,12 +31,20 @@ We plan to visualize our data based on the different main markets (Europe, North
 For our exploratory data analysis, we made a [notebook](code/data_exploration.ipynb) containing basic statistics and simple visualizations.
 
 This graph illustrates the main problem with the first dataset, which is the distribution of samples over the year, where the majority of samples are between 2002 and 2010.
-![Top Count Per Year](img/Count_Sales_Per_Year.png)
+![Count Per Year](img/Count_Sales_Per_Year.png)
 
-this problem is reflected in the rest of the statistics as for example the number of samples related to the DS and the PS2 are over represented.
-![Top Count Per Platform](img/Count_Sales_Per_Platform.png)
+This problem is reflected in the rest of the statistics as for example the number of samples related to the DS and the PS2 are over represented.
+![Count Per Platform](img/Count_Sales_Per_Platform.png)
+
+However, this problem should not impact the results of our problematic and our visualizations.
+
+The second dataset is less complete than the first one concerning extra information about the game, like developer, platforms, genre and type, but this will be compensated by the first dataset during merging. 
+It has however all the scores for the game in it’s repertory, both the critic’s score and user score; They are displayed side by side below:
 
 ![Density Of Meta And User Score](img/Density_Of_Meta_And_User_Score.png)
+As we can see, they are overall very close. This is an important aspect: if critics don’t reflect the public’s opinion, one can ask if they should be trusted. Yet there still are interesting differences between the two: for instance, the critic scores tend to be rounded to the nearest tenth, whereas the user score follows a smoother gaussian, as there are often few critics for many users leaving ratings (that are then averaged) on a particular game.
+
+Finally, it is important to keep in mind that users can be much more subjective than paid critics; for instance, games can be subject to “review bombing”, where (part of) the community manifest their disapproval of the developer/publisher’s decisions by leaving very negative reviews en masse.
 
 ## Related Work
 A full exploratory data analysis and a data visualization is already done on the first dataset [Video Game Sales EDA, Visualizations, ML Models](https://www.kaggle.com/code/vikasukani/video-game-sales-eda-visualizations-ml-models/notebook).
