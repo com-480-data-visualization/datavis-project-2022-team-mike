@@ -6,10 +6,11 @@ import math
 import matplotlib.pyplot as plt
 import seaborn as sns
 import ast
-from util import save_dataframes, load_dataframes
+from util import *
 ```
 
 ```python
+IMG = f'..{SPLIT}img{SPLIT}'
 df_games_sales = load_dataframes("vgsales_cleand")
 df_games_vote = load_dataframes("games_of_all_time_cleand")
 ```
@@ -29,7 +30,24 @@ def Top_Per(df, value, top='Sales', head = 20, sales_type = 'Global_Sales'):
     plt.xlabel('Count (in millions)', size=20)
     plt.ylabel(value, size=20)
     plt.title(f'Top {top} Per {value}', size=24)
-    plt.savefig(f'Top {top} Per {value}')
+    plt.savefig(f'{IMG}Top_{top}_Per_{value}'.replace(' ', '_'))
+    plt.show()
+    
+def Count_Per(df, value, top='Sales', head = 20):
+    plt.figure(figsize=(20,10))
+    
+    df = df if (value != 'Year') else df[df_games_sales['Year'] > 0]
+    df = df.groupby(value).count().sort_values('Rank', ascending=False)[['Rank']]
+    df = df.head(head) if (value != 'Year') else df
+    df = pd.DataFrame({value: df.index, 'Rank': df['Rank']}).reset_index(drop=True)
+
+    ax = sns.barplot(x='Rank', y=value, orient='h', data=df)
+    ax.tick_params(axis='both'if (value != 'Year')else'x', labelsize=20)
+    
+    plt.xlabel('Count', size=20)
+    plt.ylabel(value, size=20)
+    plt.title(f'Count_{top}_Per_{value}', size=24)
+    plt.savefig(f'{IMG}Count_{top}_Per_{value}'.replace(' ', '_'))
     plt.show()
 ```
 
@@ -52,7 +70,15 @@ Top_Per(df_games_sales, 'Platform', top='Sales')
 ```
 
 ```python
+Count_Per(df_games_sales, 'Platform')
+```
+
+```python
 Top_Per(df_games_sales, 'Genre', top='Sales')
+```
+
+```python
+Count_Per(df_games_sales, 'Genre')
 ```
 
 ```python
@@ -60,7 +86,15 @@ Top_Per(df_games_sales, 'Publisher', top='Sales', head = 11)
 ```
 
 ```python
+Count_Per(df_games_sales, 'Publisher', head = 11)
+```
+
+```python
 Top_Per(df_games_sales, 'Year', top='Sales')
+```
+
+```python
+Count_Per(df_games_sales, 'Year', head = 11)
 ```
 
 # Votes
@@ -114,7 +148,7 @@ ax.tick_params(axis='both', labelsize=20)
 plt.xlabel(f'Score', size=20)
 plt.ylabel(f'Density', size=20)
 plt.title(f'Density Of Meta And User Score', size=24)
-plt.savefig('Density Of Meta And User Score')
+plt.savefig(f'{IMG}Density Of Meta And User Score')
 plt.show()
 ```
 

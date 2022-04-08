@@ -6,7 +6,7 @@ ENCODING = 'utf-8'
 COMPRESSION = 'bz2'
 SPLIT = '\\' if '\\' in os.getcwd() else '/'
 
-DATA_PATH = f'data'
+DATA_PATH = f'..{SPLIT}data'
 
 
 def save_dataframes(df, filename, path=DATA_PATH, compression=COMPRESSION, encoding=ENCODING):
