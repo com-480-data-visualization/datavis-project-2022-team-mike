@@ -30,8 +30,10 @@ We plan to visualize our data based on the different main markets (Europe, North
 
 For our exploratory data analysis, we made a [notebook](code/data_exploration.ipynb) containing basic statistics and simple visualizations.
 
+This graph illustrates the main problem with the first dataset, which is the distribution of samples over the year, where the majority of samples are between 2002 and 2010.
 ![Top Count Per Year](img/Count_Sales_Per_Year.png)
 
+this problem is reflected in the rest of the statistics as for example the number of samples related to the DS and the PS2 are over represented.
 ![Top Count Per Platform](img/Count_Sales_Per_Platform.png)
 
 ![Density Of Meta And User Score](img/Density_Of_Meta_And_User_Score.png)
