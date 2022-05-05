@@ -59,3 +59,28 @@ We will be inspired by the visualization already done on the first dataset for o
 SCIENCE • 10 Feb 2006 • Vol 311, Issue 5762
 <br>&nbsp;&nbsp;&nbsp;
 MATTHEW J. SALGANIKPETER SHERIDAN DODDSAND DUNCAN J. WATTS
+
+# Milestone 2
+
+## Tools:
+To sketch the visualization and organize it,we are using Draw.io. It is a simple and intuitive tool to design interfaces, and it allows us to quickly sketch our ideas.
+
+To implement the website itself, we plan on using GitHub Pages. It is a static site hosting service that takes HTML, CSS, and JavaScript files straight from a repository on GitHub, and it is a convenient, free, and straightforward way of creating a simple website to host our visualizations.
+
+To implement said visualization, we plan on using Javascript, with various resources from the course and online tutorials.
+
+Finally, we will use Python and its Pandas library to calculate the various statistics, just like we did for the previous milestone. It is a very common choice for this kind of application, as it is a very powerful library, and with which we have lots of experience. We’ll also use Python to write scraping scripts for the logos.
+
+There’s several tips and information we can use from the lectures, for instance lectures 4 and 5 give a lot of useful tips, and introduce D3.js which we will use for the animations. Lecture 6 also has useful elements, in regards to marks and channels that we will use. Finally lecture 7 gives great guidelines and info on making charts and plots, and on conceiving a data visualization.
+
+Below are links to various website we will use:
+Link to the main website on Github Pages: https://com-480-data-visualization.github.io/datavis-project-2022-team-mike/index.html
+Link to the logo-listing website: https://logos.fandom.com/wiki/
+
+
+## Implementation pipeline:
+We want to focus on getting the “circle” idea working in priority, as it is the main idea of our visualization. Particularly, we want to have these main elements: Size of the circle linked to the attribute, clicking on the circles to navigate between layers, and a timeline that can be navigated/animated. To do that, we have to implement the python scripts to fetch and calculate the relevant data from the database, and we have to implement the main widget for the visualization. 
+Then, we can get the second main page working, to give more detailed breakdowns of the data; it should be simpler to implement, as it uses many of the same concepts as the “circle” idea.
+
+Finally, we want to focus on having visually appealing results, with the use of logos inside circles and the scores on the perimeters, as explained in the sketch. We’re confident we can get the logo idea to work (at least for the main publishers/platforms/games), but as it is not critical, we will leave it for the end. Similarly, we want to optimize the way the visualization is computed, using cache and precomputation to minimize load on the server and client.
+
