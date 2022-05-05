@@ -24,9 +24,9 @@
         crossorigin="anonymous"></script>
     <script src="../jquery.js"></script> 
     <script> 
-        var lbl = document.getElementById('includedNavbar');
         $("#includedNavbar").load("../navbar.html");
-        setCurrent('home')
+        var lbl = document.getElementById(id);
+        lbl.innerHTML = '<b>' + lbl.innerHTML + '</b>';
     </script>
 </body>
 
