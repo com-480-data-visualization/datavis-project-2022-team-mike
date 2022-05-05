@@ -62,6 +62,12 @@ MATTHEW J. SALGANIKPETER SHERIDAN DODDSAND DUNCAN J. WATTS
 
 # Milestone 2
 
+## Sketch
+
+![Global view](img/Global.png)
+
+![Circle view](img/Circles.png)
+
 ## Tools:
 To sketch the visualization and organize it,we are using Draw.io. It is a simple and intuitive tool to design interfaces, and it allows us to quickly sketch our ideas.
 
