@@ -9,8 +9,7 @@
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 
-<body>
-    <div id="includedNavbar"></div>
+<body id="includedNavbar">
     
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
@@ -25,7 +24,7 @@
     <script src="../jquery.js"></script> 
     <script> 
         $("#includedNavbar").load("../navbar.html");
-        var lbl = document.getElementById(id);
+        var lbl = document.getElementById('home');
         lbl.innerHTML = '<b>' + lbl.innerHTML + '</b>';
     </script>
 </body>
