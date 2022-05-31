@@ -15,7 +15,6 @@ def get_image(row):
                 res = res.replace(t,'')
             else:
                 return False
-        print(res)
         return len(res) == 0
 
     #text = "mario kart wii"
@@ -25,13 +24,13 @@ def get_image(row):
         if(t not in res):
             res.append(t)
     text = '+'.join(res)
-    print(text)
+    print(f"http://logos.fandom.com/wiki/Special:Search?scope=internal&query={text}&ns%5B0%5D=6&filter=imageOnly")
     r = requests.get(f"http://logos.fandom.com/wiki/Special:Search?scope=internal&query={text}&ns%5B0%5D=6&filter=imageOnly")
     text = r.text
-    while (len(text) > 0) and '"unified-search__results"' in text:
+    while ((len(text) > 0) and ('"unified-search__result__header"' in text)):
         if('<i>No results found.</i>' in text):
             return None
-        text = getafter(text, '"unified-search__results"')
+        text = getafter(text, '"unified-search__result__header"')
         text = getafter(text, '<img')
         text = getafter(text, 'src="')
         res = getbefore(text, '"')
