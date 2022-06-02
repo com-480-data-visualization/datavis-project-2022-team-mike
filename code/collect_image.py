@@ -17,16 +17,15 @@ def get_image(row):
                 return False
         return len(res) == 0
 
-    #text = "mario kart wii"
     text = f"{row['Name']} {row['Platform']}"
     res = []
     for t in text.split(' '):
         if(t not in res):
             res.append(t)
     text = '+'.join(res)
-    print(f"http://logos.fandom.com/wiki/Special:Search?scope=internal&query={text}&ns%5B0%5D=6&filter=imageOnly")
     r = requests.get(f"http://logos.fandom.com/wiki/Special:Search?scope=internal&query={text}&ns%5B0%5D=6&filter=imageOnly")
     text = r.text
+    first = None
     while ((len(text) > 0) and ('"unified-search__result__header"' in text)):
         if('<i>No results found.</i>' in text):
             return None
@@ -34,14 +33,14 @@ def get_image(row):
         text = getafter(text, '<img')
         text = getafter(text, 'src="')
         res = getbefore(text, '"')
-
+        if(first is None):
+            first = res
         for extension in ['svg', 'jpg', 'png', 'webp']:
             if(f'.{extension}' in res):
                 res = getbefore(res, extension) + extension
                 if test_is_valid_image(res, extension, row):
-                    print(res)
                     return res
-    return None
+    return first
 
 def add_image(df):
     val = df.apply(lambda row: (f"{row['Name']} {row['Platform']} {row['Publisher']}", get_image(row)), axis=1)
