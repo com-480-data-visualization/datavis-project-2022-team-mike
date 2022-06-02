@@ -31,6 +31,7 @@ function draw(json, svg_) {
             .replaceAll("/", "_")
             .replaceAll("\\", "_")
             .replaceAll(".", "");
+        const color = json.children[i].color;
 
         const img = new Image();
         const j = i;
@@ -43,7 +44,7 @@ function draw(json, svg_) {
         return {
             width: -1,
             height: -1,
-            avgc: 'rgb(255,255,255)',
+            color: color,
             radius: radius,
             true_radius: radius,
             name: name,
@@ -80,7 +81,7 @@ function draw(json, svg_) {
         .attr("r", rad)
         .attr("cx", rad)
         .attr("cy", rad)
-        .style("fill", function (d, i) { return d.avgc; });
+        .style("fill", function (d, i) { return d.color; });
 
     g.append("circle")
         .attr("r", rad)
@@ -100,7 +101,7 @@ function draw(json, svg_) {
             if (focus == i) {
                 d3.select('#g_' + json.nodes[focus].name)
                     .selectAll("circle")
-                    .style("fill", function (d, i) { return i ? 'url(#img_' + d.name + ')' : d.avgc; });
+                    .style("fill", function (d, i) { return i ? 'url(#img_' + d.name + ')' : d.color; });
                 clear();
                 focus = -1;
             }
@@ -108,7 +109,7 @@ function draw(json, svg_) {
                 focus = i;
                 d3.select('#g_' + json.nodes[focus].name)
                     .selectAll("circle")
-                    .style("fill", function (d, i) { return d.avgc; });
+                    .style("fill", function (d, i) { return d.color; });
             }
         });
 
