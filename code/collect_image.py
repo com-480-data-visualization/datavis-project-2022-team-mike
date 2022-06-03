@@ -28,7 +28,8 @@ def get_image(row):
     text = '+'.join(res)
     r = requests.get(
         f"http://logos.fandom.com/wiki/Special:Search?scope=internal&query={text}&ns%5B0%5D=6&filter=imageOnly")
-    text = r.text
+    tmp = r.text
+    text = tmp
     first = None
     while ((len(text) > 0) and ('"unified-search__result__header"' in text)):
         if('<i>No results found.</i>' in text):
@@ -44,6 +45,15 @@ def get_image(row):
                     first = res
                 if test_is_valid_image(res, extension, row):
                     return res
+    
+    text = tmp
+    if('"unified-search__community__image"' in text):
+        text = getafter(text, '"unified-search__community__image"')
+        text = getafter(text, 'src="')
+        res = getbefore(text, '"')
+        for extension in ['svg', 'jpg', 'png', 'webp']:
+            if(f'.{extension}' in res):
+                return getbefore(res, extension) + extension
     return first
 
 

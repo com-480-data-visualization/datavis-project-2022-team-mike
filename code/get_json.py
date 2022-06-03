@@ -1,5 +1,6 @@
 from time import time
 from util import save_dataframes, load_dataframes
+import ast
 
 
 def get_idx(param, key):
@@ -10,7 +11,7 @@ def get_idx(param, key):
 
 
 def add_json(path, filename):
-    global i, d, t, param
+    global i, d, t, param, map_
     param = {}
     param["name"] = ""
     param["color"] = "rgb(255,255,255)"
@@ -21,8 +22,13 @@ def add_json(path, filename):
     n = len(df)
     t = time()
 
+    f = open("../data/img.py", "r")
+
+    map_ = ast.literal_eval(f.read())
+    f.close()
+
     def json(row):
-        global i, d, t, param
+        global i, d, t, param, map_
 
         Meta_score = float(row['Meta_score'])
         User_score = float(row['User_score'])
@@ -47,35 +53,7 @@ def add_json(path, filename):
         if(Global_Sales != Global_Sales):
             Global_Sales = -1
 
-        if('children' not in param):
-            param['children'] = []
-
-        idx = get_idx(param, str(row['Publisher']))
-        if(idx < 0):
-            idx = len(param['children'])
-            param['children'].append({})
-
-        c = param['children'][idx]
-        if('Name' not in c):
-            c['Name'] = str(row['Publisher']).replace(
-                "\"", "'").replace("'", "\\\"")
-            c['Meta_score'] = max(0, Meta_score)
-            c['User_score'] = max(0, User_score)
-            c['NA_Sales'] = max(0, NA_Sales)
-            c['EU_Sales'] = max(0, EU_Sales)
-            c['JP_Sales'] = max(0, JP_Sales)
-            c['Other_Sales'] = max(0, Other_Sales)
-            c['Global_Sales'] = max(0, Global_Sales)
-            c['color'] = 'rgb(255,255,255)'
-            c['img'] = 'TODO'
-        else:
-            c['Meta_score'] += max(0, Meta_score)
-            c['User_score'] += max(0, User_score)
-            c['NA_Sales'] += max(0, NA_Sales)
-            c['EU_Sales'] += max(0, EU_Sales)
-            c['JP_Sales'] += max(0, JP_Sales)
-            c['Other_Sales'] += max(0, Other_Sales)
-            c['Global_Sales'] += max(0, Global_Sales)
+        c = param
 
         if('children' not in c):
             c['children'] = []
@@ -96,8 +74,10 @@ def add_json(path, filename):
             c['JP_Sales'] = max(0,  JP_Sales)
             c['Other_Sales'] = max(0,  Other_Sales)
             c['Global_Sales'] = max(0,  Global_Sales)
+            c['NB'] = 1
             c['color'] = 'rgb(255,255,255)'
-            c['img'] = 'TODO'
+            c['img'] = map_['Platform'][row['Platform']] if((
+                row['Platform'] in map_['Platform']) and (map_['Platform'][row['Platform']] is not None)) else ""
         else:
             c['Meta_score'] += max(0, Meta_score)
             c['User_score'] += max(0, User_score)
@@ -106,6 +86,41 @@ def add_json(path, filename):
             c['JP_Sales'] += max(0, JP_Sales)
             c['Other_Sales'] += max(0, Other_Sales)
             c['Global_Sales'] += max(0, Global_Sales)
+            c['NB'] += 1
+
+        if('children' not in c):
+            c['children'] = []
+
+        idx = get_idx(c, str(row['Publisher']))
+        if(idx < 0):
+            idx = len(c['children'])
+            c['children'].append({})
+
+        c = c['children'][idx]
+        if('Name' not in c):
+            c['Name'] = str(row['Publisher']).replace(
+                "\"", "'").replace("'", "\\\"")
+            c['Meta_score'] = max(0, Meta_score)
+            c['User_score'] = max(0, User_score)
+            c['NA_Sales'] = max(0, NA_Sales)
+            c['EU_Sales'] = max(0, EU_Sales)
+            c['JP_Sales'] = max(0, JP_Sales)
+            c['Other_Sales'] = max(0, Other_Sales)
+            c['Global_Sales'] = max(0, Global_Sales)
+            c['NB'] = 1
+            c['color'] = 'rgb(255,255,255)'
+            
+            c['img'] = map_['Publisher'][row['Publisher']] if((
+                row['Publisher'] in map_['Publisher']) and (map_['Publisher'][row['Publisher']] is not None)) else ""
+        else:
+            c['Meta_score'] += max(0, Meta_score)
+            c['User_score'] += max(0, User_score)
+            c['NA_Sales'] += max(0, NA_Sales)
+            c['EU_Sales'] += max(0, EU_Sales)
+            c['JP_Sales'] += max(0, JP_Sales)
+            c['Other_Sales'] += max(0, Other_Sales)
+            c['Global_Sales'] += max(0, Global_Sales)
+            c['NB'] += 1
 
         if('children' not in c):
             c['children'] = []
@@ -169,5 +184,6 @@ def add_json(path, filename):
     f = open(filename, "w", encoding="utf8")
     f.write(file)
     f.close()
+
 
 add_json("merged_sales_ratings_img", "../data/bubble.json")
