@@ -90,3 +90,6 @@ Then, we can get the second main page working, to give more detailed breakdowns 
 
 Finally, we want to focus on having visually appealing results, with the use of logos inside circles and the scores on the perimeters, as explained in the sketch. We’re confident we can get the logo idea to work (at least for the main publishers/platforms/games), but as it is not critical, we will leave it for the end. Similarly, we want to optimize the way the visualization is computed, using cache and precomputation to minimize load on the server and client.
 
+# Milestone 1
+
+The Progress book and the screen recording can be found at the root of this directory; otherwise, both the main and Page branch contain our source code used to create the visualizations.
