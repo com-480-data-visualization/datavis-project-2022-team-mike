@@ -3,9 +3,11 @@ min = (a, b) => a < b ? a : b;
 abs = (a) => a < 0 ? -a : a;
 const rad = 100;
 const plus = 250;
+const color_range = d3.scale.linear()
+    .domain([0, 25, 50, 75, 100])
+    .range(['red', 'orange', 'yellow', 'green', 'blue']);
 
-
-function draw(json, svg_) {
+function draw(json, svg_, value_, score_) {
     let width = $(document).width() - 5;
     let height = $(document).height() - 75;
 
@@ -16,22 +18,24 @@ function draw(json, svg_) {
         : svg_;
 
     json.max = 0;
+    json.sum = 0;
     let i = 0;
     let n = json.children.length;
     while (i < n) {
-        json.max = Math.sqrt(max(json.max, json.children[i].value));
+        json.max = max(json.max, Math.sqrt(value_(json.children[i])));
+        json.sum += Math.sqrt(value_(json.children[i]));
         i++;
     }
 
     json.nodes = d3.range(json.children.length).map(function (i) {
-        const radius = Math.sqrt(json.children[i].value) / json.max * 100;
-        const src = json.children[i].img;
-        const name = json.children[i].name
+        const radius = Math.sqrt(value_(json.children[i])) * min(2000 / json.sum, 200 / json.max) + 10;
+        const src = json.children[i].img.length > 0 ? json.children[i].img : "default.png";
+        const name = json.children[i].Name
             .replaceAll(" ", "_")
             .replaceAll("/", "_")
             .replaceAll("\\", "_")
             .replaceAll(".", "");
-        const color = json.children[i].color;
+        const color = json.children[i].img.length > 0 ? json.children[i].color : "rgb(84,84,84)";
 
         const img = new Image();
         const j = i;
@@ -47,6 +51,8 @@ function draw(json, svg_) {
             color: color,
             radius: radius,
             true_radius: radius,
+            score: score_(json.children[i]),
+            text: json.children[i].Name,
             name: name,
             image: src
         };
@@ -71,24 +77,7 @@ function draw(json, svg_) {
         .append("image")
         .attr("href", function (d, i) { return d.image; });
 
-    const g = svg.selectAll("circle")
-        .data(json.nodes.slice(0))
-        .enter()
-        .append("g")
-        .attr("id", function (d, i) { return 'g_' + d.name; });
-
-    g.append("circle")
-        .attr("r", rad)
-        .attr("cx", rad)
-        .attr("cy", rad)
-        .style("fill", function (d, i) { return d.color; });
-
-    g.append("circle")
-        .attr("r", rad)
-        .attr("cx", rad)
-        .attr("cy", rad)
-        .style("fill", function (d, i) { return 'url(#img_' + d.name + ')'; })
-        .on("click", function (d, i) {
+    function onclick(d, i) {
             if (!play) {
                 let i = 0;
                 let n = json.nodes.length;
@@ -103,6 +92,10 @@ function draw(json, svg_) {
                     .selectAll("circle")
                     .style("fill", function (d, i) { return i ? 'url(#img_' + d.name + ')' : d.color; });
                 clear();
+                
+                d3.select('#t_' + json.nodes[focus].name)
+                    .html(function (d, i) { return d.text; })
+    
                 focus = -1;
             }
             else {
@@ -110,8 +103,50 @@ function draw(json, svg_) {
                 d3.select('#g_' + json.nodes[focus].name)
                     .selectAll("circle")
                     .style("fill", function (d, i) { return d.color; });
+    
+                d3.select('#t_' + json.nodes[focus].name)
+                    .html("")
             }
-        });
+        }
+
+    const g = svg.selectAll("circle")
+        .data(json.nodes.slice(0))
+        .enter()
+        .append("g")
+        .attr("id", function (d, i) { return 'g_' + d.name; });
+
+    g.append("circle")
+        .attr("r", rad)
+        .attr("cx", rad)
+        .attr("cy", rad)
+        .style("fill", function (d, i) { return d.color; })
+        .attr("stroke", function (d, i) { return color_range(d.score); })
+        .attr("stroke-width", "6")
+        .on("click", onclick);
+
+    g.append("circle")
+        .attr("r", rad)
+        .attr("cx", rad)
+        .attr("cy", rad)
+        .style("fill", function (d, i) { return 'url(#img_' + d.name + ')'; })
+        .attr("stroke", function (d, i) { console.log(color_range(d.score)); return color_range(d.score); })
+        .attr("stroke-width", "6")
+        .on("click", onclick);
+
+    g.append("text")
+        .attr("id", function (d, i) { return 't_' + d.name; })
+        .attr("dx", rad)
+        .attr("dy", rad)
+        .attr("font-family", "impact")
+        .attr("font-size", "16")
+        .attr("fill", "white")
+        .attr("stroke", "black")
+        .attr("stroke-width", "1")
+        .attr("dominant-baseline", "middle")
+        .attr("text-anchor", "middle")
+        .html(function (d, i) { return d.text; })
+        .on("click", onclick);
+
 
     let focus = -1;
     let play = true;
@@ -157,7 +192,7 @@ function draw(json, svg_) {
                         let sub_svg = svg
                             .append("g")
                             .attr("id", 'gc_' + json.nodes[focus].name);
-                        clear = draw(json.children[focus], sub_svg);
+                        clear = draw(json.children[focus], sub_svg, value_, score_);
                     }
                     else {
                         console.log("ICI")
@@ -243,8 +278,8 @@ function draw(json, svg_) {
 }
 
 
-$.getJSON("example.json", function (json) {
-    draw(json, null);
+$.getJSON("../data/bubble.json", function (json) {
+    draw(json, null, function (child) { return child.Global_Sales }, function (child) { return child.NB ? child.Meta_score / child.NB : child.Meta_score });
 }
 ).fail(function () {
     console.log("error");
