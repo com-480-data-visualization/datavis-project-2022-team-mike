@@ -24,10 +24,11 @@
             var ele = document.getElementsByName('groupby');
               
             for(i = 0; i < ele.length; i++) {
-                if(ele[i].checked)
-                document.getElementById("frame1").src = "../plots/"+ele[i].value+"_sales_with_meta_score.html"
-                document.getElementById("frame2").src = "../plots/"+ele[i].value+"_meta_score_vs_sales.html"
-                document.getElementById("frame3").src = "../plots/"+ele[i].value+"_meta_score_vs_user_score.html"
+                if(ele[i].checked){
+                    document.getElementById("frame1").src = "../plots/"+ele[i].value+"_sales_with_meta_score.html"
+                    document.getElementById("frame2").src = "../plots/"+ele[i].value+"_meta_score_vs_sales.html"
+                    document.getElementById("frame3").src = "../plots/"+ele[i].value+"_meta_score_vs_user_score.html"
+                }
             }
         }
     </script>
