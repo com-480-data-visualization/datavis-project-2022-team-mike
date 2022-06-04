@@ -10,51 +10,20 @@ def get_image(text):
     def getbefore(text, substr):
         return text[:text.find(substr)]
 
-    def test_is_valid_image(img, extension, name):
-        res = getbefore(
-            img, '.' + extension).split('/')[-1].replace('_', '').replace('-', '').replace(' ', '')
-        for t in name.split(' '):
-            if(t.replace('.', '') in res):
-                res = res.replace(t, '')
-            else:
-                return False
-        return len(res) == 0
-
-    res = []
-    for t in str(text).split(' '):
-        if(t not in res):
-            res.append(t)
-    text = '+'.join(res)
+    text.replace(" ", "_")
     r = requests.get(
-        f"http://logos.fandom.com/wiki/Special:Search?scope=internal&query={text}&ns%5B0%5D=6&filter=imageOnly")
-    tmp = r.text
+        f"http://fr.wikipedia.org/wiki/{text}")
+    text = r.text
+    if("Wikipédia ne possède pas d'article avec ce nom." in text):
+        return ''
 
-    text = tmp
-    first = None
-    while ((len(text) > 0) and ('"unified-search__result__header"' in text)):
-        if('<i>No results found.</i>' in text):
-            return None
-        text = getafter(text, '"unified-search__result__header"')
-        text = getafter(text, '<img')
-        text = getafter(text, 'src="')
-        res = getbefore(text, '"')
-        for extension in ['svg', 'jpg', 'png', 'webp']:
-            if(f'.{extension}' in res):
-                res = getbefore(res, extension) + extension
-                if(first is None):
-                    first = res
-                if test_is_valid_image(res, extension, text):
-                    return res
-
-    text = tmp
-    if('"unified-search__community__image"' in text):
-        text = getafter(text, '"unified-search__community__image"')
-        text = getafter(text, 'data-thumbnail="')
-        res = getbefore(text, '"')
-        for extension in ['svg', 'jpg', 'png', 'webp']:
-            if(f'.{extension}' in res):
-                return res.replace("&amp;", "&")
-    return first
+    text = getafter(text, 'class="infobox infobox_v2"')
+    text = getafter(text, '<img')
+    text = getafter(text, 'src="')
+    res = getbefore(text, '"')
+    if(res.startswith('//upload.wikimedia.org')):
+        return f"https:{res}"
+    return ''
 
 
 def add_image(path, filename):
@@ -62,11 +31,21 @@ def add_image(path, filename):
     publisher = {}
     platform = {}
 
-    for p in df["Publisher"].unique():
-        publisher[p] = get_image(p)
+    val = df["Publisher"].unique()
+    i = 0
+    n = len(val)
+    for p in val:
+        publisher[str(p)] = get_image(str(p))
+        i += 1
+        print(f'{i*1000 // n/10 }%', end = '\r')
 
-    for p in df["Platform"].unique():
-        platform[p] = ''#get_image(p)
+    val = df["Platform"].unique()
+    i = 0
+    n = len(val)
+    for p in val:
+        platform[str(p)] = get_image(str(p))
+        i += 1
+        print(f'{i*1000 // n/10 }%', end = '\r')
 
     param = {
         "Publisher": publisher,

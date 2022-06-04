@@ -45,15 +45,6 @@ def get_image(row):
                     first = res
                 if test_is_valid_image(res, extension, row):
                     return res
-    
-    text = tmp
-    if('"unified-search__community__image"' in text):
-        text = getafter(text, '"unified-search__community__image"')
-        text = getafter(text, 'src="')
-        res = getbefore(text, '"')
-        for extension in ['svg', 'jpg', 'png', 'webp']:
-            if(f'.{extension}' in res):
-                return getbefore(res, extension) + extension
     return first
 
 

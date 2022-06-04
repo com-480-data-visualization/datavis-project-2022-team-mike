@@ -109,9 +109,13 @@ def add_json(path, filename):
             c['Global_Sales'] = max(0, Global_Sales)
             c['NB'] = 1
             c['color'] = 'rgb(255,255,255)'
-            
             c['img'] = map_['Publisher'][row['Publisher']] if((
                 row['Publisher'] in map_['Publisher']) and (map_['Publisher'][row['Publisher']] is not None)) else ""
+            while((len(c['img']) > 0) and not(
+                c['img'].endswith(".jpg") or
+                c['img'].endswith(".png") or 
+                c['img'].endswith(".svg"))):
+                c['img'] = c['img'][:-1]
         else:
             c['Meta_score'] += max(0, Meta_score)
             c['User_score'] += max(0, User_score)
