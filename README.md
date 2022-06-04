@@ -92,7 +92,7 @@ Finally, we want to focus on having visually appealing results, with the use of 
 
 # Milestone 3
 
-The Progress book and the screen recording can be found at the root of this directory; otherwise, both the main and Page branch contain our source code used to create the visualizations.
+The Progress book and the screen recording can be found at the root of this directory; otherwise, both the main and Page branch contain our source code used to do the project.
 
 - Website: [datavis-project-2022-team-mike](https://com-480-data-visualization.github.io/datavis-project-2022-team-mike)
 - Progress book: [Progress_book.pdf](Progress_book.pdf)
