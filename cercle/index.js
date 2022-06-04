@@ -389,7 +389,7 @@ function draw(json, svg_, value_, score_) {
 
 // get json
 $.getJSON("../data/bubble.json", function (json) {
-    draw(json, null, function (child) { return child.Global_Sales }, function (child) { return child.NB ? child.Meta_score / child.NB : child.Meta_score });
+    draw(json, null, function (child) { return child.Global_Sales }, function (child) { return child.NB ? child.Meta_score / child.NB : -1 });
 }
 ).fail(function () {
     console.log("error");
