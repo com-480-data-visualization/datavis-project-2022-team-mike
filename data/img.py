@@ -597,7 +597,7 @@
 		'X360':'https://upload.wikimedia.org/wikipedia/fr/thumb/4/43/Xbox_360_Logo.svg/200px-Xbox_360_Logo.svg.png',
 		'DS':'https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Nintendo_DS_Logo.svg/200px-Nintendo_DS_Logo.svg.png',
 		'XOne':'https://upload.wikimedia.org/wikipedia/fr/c/c4/Xbox_One_Logo.png',
-		'PSV':'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/PlayStation_5_logo_and_wordmark.svg/200px-PlayStation_5_logo_and_wordmark.svg.png',
+		'PSV':'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/PlayStation_Vita_logo.svg/200px-PlayStation_Vita_logo.svg.png',
 		'GB':'https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Gameboy_logo.svg/200px-Gameboy_logo.svg.png',
 		'PSP':'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/PSP_Logo.svg/200px-PSP_Logo.svg.png',
 		'SAT':'https://upload.wikimedia.org/wikipedia/fr/thumb/a/a9/Sega_Saturn_Logo.svg/200px-Sega_Saturn_Logo.svg.png',
