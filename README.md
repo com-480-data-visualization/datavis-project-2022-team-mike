@@ -95,5 +95,5 @@ Finally, we want to focus on having visually appealing results, with the use of 
 The Progress book and the screen recording can be found at the root of this directory; otherwise, both the main and Page branch contain our source code used to create the visualizations.
 
 - Website: [datavis-project-2022-team-mike](https://com-480-data-visualization.github.io/datavis-project-2022-team-mike)
-- Process book: [Process_book.pdf](Process_book.pdf)
-- Screencast: [Screencast.mp4](Screencast.mp4)
+- Progress book: [Progress_book.pdf](Progress_book.pdf)
+- DatavizScreenCap: [DatavizScreenCap.mp4](DatavizScreenCap.mp4)
