@@ -257,13 +257,13 @@ function draw(json, svg_, value_, score_) {
                             .attr("stroke-width", "1");
 
                         add_text(sub_svg, 20, 40, root.Name);
-                        add_text(sub_svg, 35, 70, `User_score : \t ${(root.User_score >= 0 ? root.User_score + "%" : "")}`);
-                        add_text(sub_svg, 35, 100, `Meta_score : \t ${(root.Meta_score >= 0 ? root.Meta_score + "%" : "")}`);
-                        add_text(sub_svg, 35, 130, `Global_Sales : \t ${(root.Global_Sales >= 0 ? root.Global_Sales + " millions" : "")}`);
-                        add_text(sub_svg, 35, 160, `NA_Sales : \t ${(root.NA_Sales >= 0 ? root.NA_Sales + " millions" : "")}`);
-                        add_text(sub_svg, 35, 190, `EU_Sales : \t ${(root.EU_Sales >= 0 ? root.EU_Sales + " millions" : "")}`);
-                        add_text(sub_svg, 35, 220, `JP_Sales : \t ${(root.JP_Sales >= 0 ? root.JP_Sales + " millions" : "")}`);
-                        add_text(sub_svg, 35, 250, `Other_Sales : \t ${(root.Meta_score >= 0 ? root.Other_Sales + " millions" : "")}`);
+                        add_text(sub_svg, 35, 70, `User score : \t ${(root.User_score >= 0 ? root.User_score + "%" : "")}`);
+                        add_text(sub_svg, 35, 100, `Meta score : \t ${(root.Meta_score >= 0 ? root.Meta_score + "%" : "")}`);
+                        add_text(sub_svg, 35, 130, `Global sales : \t ${(root.Global_Sales >= 0 ? root.Global_Sales + " millions" : "")}`);
+                        add_text(sub_svg, 35, 160, `NA sales : \t ${(root.NA_Sales >= 0 ? root.NA_Sales + " millions" : "")}`);
+                        add_text(sub_svg, 35, 190, `EU sales : \t ${(root.EU_Sales >= 0 ? root.EU_Sales + " millions" : "")}`);
+                        add_text(sub_svg, 35, 220, `JP sales : \t ${(root.JP_Sales >= 0 ? root.JP_Sales + " millions" : "")}`);
+                        add_text(sub_svg, 35, 250, `Other sales : \t ${(root.Meta_score >= 0 ? root.Other_Sales + " millions" : "")}`);
                         clear = function () {
                             sub_svg.remove();
                             sub_svg = null;
