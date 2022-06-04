@@ -14,62 +14,58 @@
         }
 
         body {
-    padding: 0px;    
-}
+            padding: 0px;    
+        }
 
-#plots {
-    position: absolute;
-    margin: 0px;
-    padding: 0px;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;  
-}
+        #plots {
+            position: absolute;
+            margin: 0px;
+            padding: 0px;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;  
+        }
 
-.plot {
-    position: absolute;
-    width: 100%;
-    height: 80%;
-    /*line-height: 300px;
-    font-size: 50px;
-    text-align: center;
-    border: 2px solid black;
-    left: 50%;
-    top: 100px;
-    margin-left: -25%;*/
-}
+        .plot {
+            position: absolute;
+            width: 100%;
+            height: 80%;
+        }
 
-#plot1 {
-    
-    left: 0%;
-}
+        #plot1 {
+            
+            left: 0%;
+        }
 
-#plot2 {
-    
-    left: 100%;
-}
+        #plot2 {
+            
+            left: 100%;
+        }
 
-#plot3 {
-    
-    left: 200%;
-}
+        #plot3 {
+            
+            left: 200%;
+        }
 
-#slide_container {
-text-align: center;}
+        #slide_container {
+        text-align: center;}
 
-#slide {
-margin: 0 auto;
-display: inline;
-text-align: center;}
+        #slide {
+            margin: 0 auto;
+            display: inline;
+            text-align: center;
+        }
 
+        #links {
+            position: absolute;
+            top: 1000px;  
+        }
         
+        li { float: left; text-decoration: none; padding: 5px; list-style-type: none}
     </style>
 </head>
 
 <body>
-
-    
-
 
     <div data-include="../navbar"></div>
 
@@ -88,7 +84,7 @@ text-align: center;}
     <br>
     <div id = "slide_container">
         <div id = "slide">
-            <button id = "prev">Prev</button>
+            <button id = "prev">Previous</button>
             <button id = "next">Next</button>
         </div>
     </div>
@@ -109,26 +105,30 @@ text-align: center;}
 
     <div id="plots">   
         <div id="plot1" class="plot">
-        <h6 style="margin-left: 100px;">Global Sales</h6>
-        <p style="margin-left: 100px;">This graph shows the top-10 revenues from video game sales worldwide</p>
+            <h6 style="margin-left: 100px;">Global Sales</h6>
+            <p style="margin-left: 100px;">This graph shows the top-10 revenues from video game sales worldwide</p>
+            <iframe  style="float:right;position: relative;" src="../plots/Games_sales_with_meta_score.html" width="100%" height="600" id="frame1"></iframe>                           
+        </div>
+        <div id="plot2" class="plot">
+            <h6 style="margin-left: 100px;">By Meta Score</h6>
+            <p style="margin-left: 100px;">Here the graph is ordered by the best-ranking Meta score, from top to bottom, with a logarithmic scale</p>
+            <iframe  src="../plots/Games_meta_score_vs_sales.html" width="100%" height="600"id="frame2"></iframe> 
+        </div>
+        <div id="plot3" class="plot">
+            <h6 style="margin-left: 100px;">Meta Score vs User Score</h6>
+            <p style="margin-left: 100px;">This graph shows the best ranking Meta score, compared with the User score</p>
+            <iframe  src="../plots/Games_meta_score_vs_user_score.html" width="100%" height="600"id="frame3"></iframe>
+        </div>
         
-        <iframe  style="float:right;position: relative;" src="../plots/Games_sales_with_meta_score.html" width="100%" height="600" id="frame1"></iframe>                           
+        
     </div>
-    <div id="plot2" class="plot">
-        <h6 style="margin-left: 100px;">By Meta Score</h6>
-        <p style="margin-left: 100px;">Here the graph is ordered by the best-ranking Meta score, from top to bottom, with a logarithmic scale</p>
+
+    <ul id = "links">
+        <li><p>Sources : </p></li><li><a href="https://www.metacritic.com/browse/games/score/metascore/all/all/filtered">Metacritics</a></li><li><a href="https://vgchartz.com">vgchartz</a></li>
+    </ul>
     
 
-        <iframe  src="../plots/Games_meta_score_vs_sales.html" width="100%" height="600"id="frame2"></iframe> 
-    </div>
-        <div id="plot3" class="plot">
-        <h6 style="margin-left: 100px;">Meta Score vs User Score</h6>
-        <p style="margin-left: 100px;">This graph shows the best ranking Meta score, compared with the User score</p>
-        
 
-        <iframe  src="../plots/Games_meta_score_vs_user_score.html" width="100%" height="600"id="frame3"></iframe>
-    </div>
-    </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
@@ -139,6 +139,7 @@ text-align: center;}
         integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
         crossorigin="anonymous"></script>
     <script src="../jquery.js"></script> 
+
     <script>
         var includes = $('[data-include]')
         $.each(includes, function () {
@@ -147,57 +148,59 @@ text-align: center;}
         })
     </script>
 
-<script> $('#next').on('click',function() {
-    var current;
-    $('.plot').each( function() {
-        if ($(this).offset().left == 0) {
-            current = $(this);
-        }
-        if ($(this).offset().left < 0) {
-            $(this).css("left", "200%");
-        }
-    });
+    <script> 
+        $('#next').on('click',function() {
+            var current;
+            $('.plot').each( function() {
+                if ($(this).offset().left == 0) {
+                    current = $(this);
+                }
+                if ($(this).offset().left < 0) {
+                    $(this).css("left", "200%");
+                }
+            });
 
-    current.animate({
-         left: '-100%'
-     }, 500);
- 
-     if (current.next().length > 0) {
-        current.next().animate({
-             left: '0%'
-         }, 500);
-     } else {
-        current.prevAll().last().animate({
-             left: '0%'
-         }, 500);
-     }
-});
+            current.animate({
+                left: '-100%'
+            }, 500);
+        
+            if (current.next().length > 0) {
+                current.next().animate({
+                    left: '0%'
+                }, 500);
+            } else {
+                current.prevAll().last().animate({
+                    left: '0%'
+                }, 500);
+            }
+        });
 
-$('#prev').on('click',function() {
-    var current;
-    $('.plot').each( function() {
-        if ($(this).offset().left == 0) {
-            current = $(this);
-        }
-        if ($(this).offset().left > 100) {
-            $(this).css("left", "-100%");
-        }
-    });
+        $('#prev').on('click',function() {
+            var current;
+            $('.plot').each( function() {
+                if ($(this).offset().left == 0) {
+                    current = $(this);
+                }
+                if ($(this).offset().left > 100) {
+                    $(this).css("left", "-100%");
+                }
+            });
 
-    current.animate({
-         left: '100%'
-     }, 500);
- 
-     if (current.prev().length > 0) {
-        current.prev().animate({
-             left: '0%'
-         }, 500);
-     } else {
-        current.nextAll().last().animate({
-             left: '0%'
-         }, 500);
-     }
-});</script>
+            current.animate({
+                left: '100%'
+            }, 500);
+        
+            if (current.prev().length > 0) {
+                current.prev().animate({
+                    left: '0%'
+                }, 500);
+            } else {
+                current.nextAll().last().animate({
+                    left: '0%'
+                }, 500);
+            }
+        });
+    </script>
 </body>
 
 </html>
