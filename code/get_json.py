@@ -29,7 +29,7 @@ def export_json(path, filename):
     t = time()
 
     #Get the image of Publisher and Platform
-    f = open("../data/img.py", "r")
+    f = open("../data/img.py", "r", encoding="utf8")
     map_ = ast.literal_eval(f.read())
     f.close()
 
