@@ -1,15 +1,23 @@
 import requests
-from time import time
-from util import save_dataframes, load_dataframes
+from util import load_dataframes
 
-
-def get_image(text):
+def get_image(row):
+    """
+    Returns the URL of the most likely image
+    """
     def getafter(text, substr):
+        """
+        Returns the string after the substr
+        """
         return text[text.find(substr) + len(substr):]
 
     def getbefore(text, substr):
+        """
+        Returns the string before the substr
+        """
         return text[:text.find(substr)]
 
+    #Get html
     text.replace(" ", "_")
     r = requests.get(
         f"http://fr.wikipedia.org/wiki/{text}")
@@ -17,6 +25,7 @@ def get_image(text):
     if("Wikipédia ne possède pas d'article avec ce nom." in text):
         return ''
 
+    #Get image URL
     text = getafter(text, 'class="infobox infobox_v2"')
     text = getafter(text, '<img')
     text = getafter(text, 'src="')
@@ -27,10 +36,14 @@ def get_image(text):
 
 
 def add_image(path, filename):
+    """
+    Add image from the dataframe in the given path to the given filename
+    """
     df = load_dataframes(path)
     publisher = {}
     platform = {}
 
+    #Get image of Publisher
     val = df["Publisher"].unique()
     i = 0
     n = len(val)
@@ -39,6 +52,7 @@ def add_image(path, filename):
         i += 1
         print(f'{i*1000 // n/10 }%', end = '\r')
 
+    #Get image of Platform
     val = df["Platform"].unique()
     i = 0
     n = len(val)
@@ -47,6 +61,7 @@ def add_image(path, filename):
         i += 1
         print(f'{i*1000 // n/10 }%', end = '\r')
 
+    #Save the results in file
     param = {
         "Publisher": publisher,
         "Platform": platform

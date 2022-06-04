@@ -1,16 +1,22 @@
 from time import time
-from util import save_dataframes, load_dataframes
+from util import load_dataframes
 import ast
 
 
 def get_idx(param, key):
+    """
+    Returns the index of the given children
+    """
     for i in range(len(param['children'])):
         if(param['children'][i]['Name'] == key):
             return i
     return -1
 
 
-def add_json(path, filename):
+def export_json(path, filename):
+    """
+    Export the json in the given path
+    """
     global i, d, t, param, map_
     param = {}
     param["name"] = ""
@@ -22,14 +28,18 @@ def add_json(path, filename):
     n = len(df)
     t = time()
 
+    #Get the image of Publisher and Platform
     f = open("../data/img.py", "r")
-
     map_ = ast.literal_eval(f.read())
     f.close()
 
     def json(row):
+        """
+        Add row to the json dictionary
+        """
         global i, d, t, param, map_
 
+        #Get basic information
         Meta_score = float(row['Meta_score'])
         User_score = float(row['User_score'])
         NA_Sales = float(row['NA_Sales'])
@@ -63,6 +73,7 @@ def add_json(path, filename):
             idx = len(c['children'])
             c['children'].append({})
 
+        #Add Platform
         c = c['children'][idx]
         if('Name' not in c):
             c['Name'] = str(row['Platform']).replace(
@@ -74,7 +85,7 @@ def add_json(path, filename):
             c['JP_Sales'] = max(0,  JP_Sales)
             c['Other_Sales'] = max(0,  Other_Sales)
             c['Global_Sales'] = max(0,  Global_Sales)
-            c['NB'] = 1
+            c['NB'] = 1 if(Meta_score >= 0) else 0
             c['color'] = 'rgb(255,255,255)'
             c['img'] = map_['Platform'][row['Platform']] if((
                 row['Platform'] in map_['Platform']) and (map_['Platform'][row['Platform']] is not None)) else ""
@@ -86,7 +97,7 @@ def add_json(path, filename):
             c['JP_Sales'] += max(0, JP_Sales)
             c['Other_Sales'] += max(0, Other_Sales)
             c['Global_Sales'] += max(0, Global_Sales)
-            c['NB'] += 1
+            c['NB'] += 1 if(Meta_score >= 0) else 0
 
         if('children' not in c):
             c['children'] = []
@@ -96,6 +107,7 @@ def add_json(path, filename):
             idx = len(c['children'])
             c['children'].append({})
 
+        #Add Publisher
         c = c['children'][idx]
         if('Name' not in c):
             c['Name'] = str(row['Publisher']).replace(
@@ -107,7 +119,7 @@ def add_json(path, filename):
             c['JP_Sales'] = max(0, JP_Sales)
             c['Other_Sales'] = max(0, Other_Sales)
             c['Global_Sales'] = max(0, Global_Sales)
-            c['NB'] = 1
+            c['NB'] = 1 if(Meta_score >= 0) else 0
             c['color'] = 'rgb(255,255,255)'
             c['img'] = map_['Publisher'][row['Publisher']] if((
                 row['Publisher'] in map_['Publisher']) and (map_['Publisher'][row['Publisher']] is not None)) else ""
@@ -124,11 +136,13 @@ def add_json(path, filename):
             c['JP_Sales'] += max(0, JP_Sales)
             c['Other_Sales'] += max(0, Other_Sales)
             c['Global_Sales'] += max(0, Global_Sales)
-            c['NB'] += 1
+            c['NB'] += 1 if(Meta_score >= 0) else 0
 
         if('children' not in c):
             c['children'] = []
 
+
+        #Add Game
         idx = len(c['children'])
         c['children'].append({})
         c = c['children'][idx]
@@ -155,6 +169,8 @@ def add_json(path, filename):
 
     df.apply(json, axis=1)
 
+
+    #Convert to json format
     result = (str(param)
               .replace('], ', '],\n')
               .replace('}', '\n}')
@@ -185,9 +201,11 @@ def add_json(path, filename):
 
     file = file.replace("'", '"').replace(
         "\\\\\"", "'").replace('"Name": nan', '"Name": ""')
+
+    #Save json in file
     f = open(filename, "w", encoding="utf8")
     f.write(file)
     f.close()
 
 
-add_json("merged_sales_ratings_img", "../data/bubble.json")
+export_json("merged_sales_ratings_img", "../data/bubble.json")
